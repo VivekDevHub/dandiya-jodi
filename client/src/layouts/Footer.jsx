@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShieldCheck, MapPin, Sparkles, AlertCircle, Phone, Mail } from 'lucide-react';
+import { Heart, ShieldCheck, MapPin, Instagram, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#08010e] border-t border-purple-950 text-gray-400 text-sm">
-      {/* Safety Notice Banner */}
-      <div className="bg-gradient-to-r from-purple-950/80 via-pink-950/50 to-amber-950/60 border-b border-purple-900/40 py-4 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-          <div className="flex items-center gap-2.5 text-pink-200 text-xs sm:text-sm font-medium">
-            <ShieldCheck className="w-5 h-5 text-brand-gold shrink-0" />
+    <footer className="bg-[#090112] border-t border-purple-950 text-slate-400 text-sm relative">
+      {/* Community Respect Banner */}
+      <div className="bg-gradient-to-r from-purple-950 via-festival-card to-pink-950 border-b border-purple-900/40 py-3.5 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs sm:text-sm">
+          <div className="flex items-center gap-2 text-pink-200 font-medium">
+            <ShieldCheck className="w-4 h-4 text-festival-gold shrink-0" />
             <span>
-              ❤️ <strong>Important Community Notice:</strong> This platform is exclusively for finding a Dandiya/Garba dance partner or group for Navratri. Respect, consent and safety come first.
+              <strong>Indore Navratri Community:</strong> Exclusively for finding genuine Garba & Dandiya partners. 100% consent-based.
             </span>
           </div>
-          <Link
-            to="/safety"
-            className="text-xs text-brand-gold hover:text-white font-semibold underline shrink-0 transition"
+          <a
+            href="#safety"
+            className="text-xs text-festival-gold hover:text-white font-bold underline shrink-0 transition"
           >
-            Read Safety Rules &rarr;
-          </Link>
+            Safety Guidelines &rarr;
+          </a>
         </div>
       </div>
 
@@ -30,58 +30,71 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">💃</span>
-              <span className="font-heading font-extrabold text-2xl text-white tracking-tight">
-                Dandiya Jodi
+              <span className="font-heading font-black text-2xl text-white tracking-tight">
+                DANDIYA JODI
               </span>
-              <Heart className="w-4 h-4 text-brand-pink fill-brand-pink" />
+              <Heart className="w-4 h-4 text-festival-pink fill-festival-pink" />
             </div>
-            <p className="text-xs font-semibold text-purple-300">
-              Managed with care by Love Angle ❤️
+
+            <div className="text-xs font-semibold text-purple-300">
+              by Love Angle • Indore • Navratri 2026
+            </div>
+
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-sm">
+              Helping Indore's dance enthusiasts connect safely, find their rhythm, and celebrate the divine festival of Navratri with joy and dignity.
             </p>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-              Connecting genuine Garba & Dandiya lovers across Indore for Navratri 2026. Experience the rhythm, dance in harmony, and celebrate the divine festival with mutual respect and zero harassment.
-            </p>
-            <div className="flex items-center gap-2 text-xs text-amber-300/90 font-medium">
-              <MapPin className="w-4 h-4 text-brand-pink shrink-0" />
-              <span>Indore, Madhya Pradesh • Dedicated Local Support</span>
+
+            <div className="flex items-center gap-3 pt-2">
+              <a
+                href="https://instagram.com/loveangle.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-festival-card border border-festival-border hover:border-festival-pink text-pink-300 hover:text-white flex items-center justify-center transition-all duration-300"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <div className="flex items-center gap-1.5 text-xs text-amber-300 font-semibold">
+                <MapPin className="w-3.5 h-3.5 text-festival-pink" />
+                <span>Indore, Madhya Pradesh</span>
+              </div>
             </div>
           </div>
 
           {/* Quick Navigation */}
           <div>
-            <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">
+            <h4 className="text-white font-heading font-bold text-xs uppercase tracking-wider mb-4">
               Explore
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
-                <Link to="/" className="hover:text-white transition">Home</Link>
+                <a href="#how-it-works" className="hover:text-white transition">How It Works</a>
               </li>
               <li>
-                <Link to="/how-it-works" className="hover:text-white transition">How It Works</Link>
+                <a href="#safety" className="hover:text-white transition">Safety</a>
               </li>
               <li>
-                <Link to="/plans" className="hover:text-white transition">Pricing Plans</Link>
+                <a href="#plans" className="hover:text-white transition">Plans</a>
               </li>
               <li>
-                <Link to="/register" className="hover:text-white text-brand-pink font-medium transition">Register Profile</Link>
+                <a href="#faq" className="hover:text-white transition">FAQ</a>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-white transition">FAQs</Link>
+                <Link to="/register" className="text-festival-pink font-semibold hover:text-pink-300 transition">
+                  Find My Jodi ❤️
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Trust & Safety */}
+          {/* Policies */}
           <div>
-            <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">
-              Safety & Moderation
+            <h4 className="text-white font-heading font-bold text-xs uppercase tracking-wider mb-4">
+              Policies
             </h4>
-            <ul className="space-y-2.5 text-sm">
+            <ul className="space-y-2.5 text-xs sm:text-sm">
               <li>
-                <Link to="/safety" className="hover:text-white transition">Safety Policy</Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="hover:text-white transition">Privacy Guarantee</Link>
+                <Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link>
               </li>
               <li>
                 <Link to="/terms" className="hover:text-white transition">Terms of Service</Link>
@@ -90,48 +103,45 @@ export default function Footer() {
                 <Link to="/refund-policy" className="hover:text-white transition">Refund Policy</Link>
               </li>
               <li>
-                <Link to="/safety#report" className="hover:text-white text-red-400 transition">Report Misconduct</Link>
+                <Link to="/safety" className="hover:text-white transition">Community Safety</Link>
               </li>
             </ul>
           </div>
 
-          {/* Indore Venues & Help */}
+          {/* Indore Helpdesk */}
           <div>
-            <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-4">
+            <h4 className="text-white font-heading font-bold text-xs uppercase tracking-wider mb-4">
               Indore Helpdesk
             </h4>
-            <p className="text-xs text-gray-400 mb-3">
-              Need assistance with your registration or matching?
+            <p className="text-xs text-slate-400 mb-3">
+              Need assistance with registration or matching?
             </p>
             <div className="space-y-2 text-xs">
-              <div className="flex items-center gap-2 text-gray-300">
-                <Mail className="w-4 h-4 text-brand-gold shrink-0" />
+              <div className="flex items-center gap-2 text-slate-300">
+                <Mail className="w-3.5 h-3.5 text-festival-gold shrink-0" />
                 <span>support@loveangle.in</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-300">
-                <Phone className="w-4 h-4 text-brand-gold shrink-0" />
-                <span>+91 98260 11111 (WhatsApp Only)</span>
+              <div className="flex items-center gap-2 text-slate-300">
+                <Phone className="w-3.5 h-3.5 text-festival-gold shrink-0" />
+                <span>+91 98260 11111 (WhatsApp)</span>
               </div>
             </div>
-            <div className="mt-4 p-2.5 rounded-lg bg-purple-950/40 border border-purple-800/30 text-xs text-purple-200">
-              📍 Saket Club • Abhivyakti • Anand Bazar • Sayaji Club
+            <div className="mt-4 p-2.5 rounded-xl bg-festival-card border border-purple-900/40 text-[11px] text-amber-200/90 font-medium">
+              📍 Saket Club • Abhivyakti • Anand Bazar • Sayaji
             </div>
           </div>
+
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-purple-950/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+        <div className="mt-12 pt-6 border-t border-purple-950/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <p>
-            &copy; 2026 Dandiya Jodi by Love Angle ❤️. All rights reserved. Strictly Navratri Garba matching.
+            &copy; 2026 Love Angle. All rights reserved. Dandiya Jodi Indore.
           </p>
           <div className="flex items-center gap-4">
-            <Link to="/privacy" className="hover:text-gray-300 transition">Privacy</Link>
-            <span>•</span>
-            <Link to="/terms" className="hover:text-gray-300 transition">Terms</Link>
-            <span>•</span>
-            <Link to="/refund-policy" className="hover:text-gray-300 transition">Refunds</Link>
-            <span>•</span>
-            <Link to="/admin/login" className="text-purple-400/60 hover:text-purple-300 transition">Staff Login</Link>
+            <Link to="/admin/login" className="text-purple-400 hover:text-purple-300 transition">
+              Staff Portal
+            </Link>
           </div>
         </div>
       </div>

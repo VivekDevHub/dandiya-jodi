@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Heart, Shield, Sparkles, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Heart, Shield, Sparkles, User, LogOut, LayoutDashboard, ArrowRight } from 'lucide-react';
 import { useAuthStore } from '../store/authStore';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuthStore();
 
   const isAdmin = user && ['SUPER_ADMIN', 'ADMIN', 'VERIFICATION_TEAM', 'MATCHING_TEAM'].includes(user.role);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile drawer on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const navLinks = [
-    { name: 'How It Works', path: '/how-it-works' },
-    { name: 'Plans', path: '/plans' },
-    { name: 'Safety & Privacy', path: '/safety' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'How It Works', path: '/#how-it-works' },
+    { name: 'Safety', path: '/#safety' },
+    { name: 'Plans', path: '/#plans' },
+    { name: 'FAQ', path: '/#faq' },
   ];
 
   const handleLogout = () => {
@@ -25,185 +42,184 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0c0214]/85 border-b border-purple-900/40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          
+    <>
+      {/* Floating Pill Navbar Wrapper */}
+      <header className="fixed top-0 left-0 right-0 z-50 px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 transition-all duration-300">
+        <div
+          className={`max-w-6xl mx-auto rounded-full transition-all duration-300 px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between ${
+            scrolled
+              ? 'bg-festival-cardSoft/90 backdrop-blur-xl border border-festival-border/80 shadow-luxury'
+              : 'bg-festival-dark/75 backdrop-blur-md border border-purple-900/40 shadow-md'
+          }`}
+        >
           {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-pink via-purple-600 to-brand-gold flex items-center justify-center shadow-lg shadow-pink-500/25 group-hover:scale-105 transition-transform duration-300">
-              <span className="text-2xl select-none">💃</span>
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-festival-pink via-purple-600 to-festival-gold flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+              <span className="text-lg sm:text-xl">💃</span>
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-brand-gold transition-colors">
-                  Dandiya Jodi
+                <span className="font-heading font-black text-base sm:text-lg tracking-tight text-white group-hover:text-festival-gold transition-colors">
+                  DANDIYA JODI
                 </span>
-                <Heart className="w-4 h-4 text-brand-pink fill-brand-pink animate-pulse" />
+                <Heart className="w-3.5 h-3.5 text-festival-pink fill-festival-pink animate-pulse" />
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-purple-300/80 font-medium">
+              <div className="hidden sm:flex items-center gap-1 text-[10px] text-purple-200/80 font-semibold tracking-wide">
                 <span>by Love Angle</span>
-                <span className="inline-block w-1 h-1 rounded-full bg-brand-gold"></span>
-                <span className="text-amber-400 font-semibold">Indore 2026</span>
+                <span>•</span>
+                <span className="text-amber-300">Indore 2026</span>
               </div>
             </div>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-7">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
-              return (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'text-brand-gold border-b-2 border-brand-gold pb-1'
-                      : 'text-gray-300 hover:text-white'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              );
-            })}
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.path}
+                className="text-sm font-heading font-semibold text-slate-300 hover:text-white hover:text-festival-gold transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
           </nav>
 
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-3.5">
+          {/* Desktop Action CTAs */}
+          <div className="hidden md:flex items-center gap-3">
             {isAuthenticated ? (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 {isAdmin && (
                   <Link
                     to="/admin/dashboard"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-purple-900/60 text-purple-200 border border-purple-600/40 hover:bg-purple-800/80 transition"
+                    className="px-3 py-1.5 rounded-full text-xs font-semibold bg-purple-900/60 text-purple-200 border border-purple-500/40 hover:bg-purple-800 transition"
                   >
-                    <Shield className="w-3.5 h-3.5 text-brand-gold" />
-                    Admin Portal
+                    Admin
                   </Link>
                 )}
-                
                 <Link
                   to="/dashboard"
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition"
+                  className="px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/10 transition"
                 >
-                  <LayoutDashboard className="w-4 h-4 text-brand-pink" />
-                  My Dashboard
+                  Dashboard
                 </Link>
-
                 <button
                   onClick={handleLogout}
-                  title="Logout"
-                  className="p-2 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition"
+                  className="p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/5 transition"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-sm font-semibold text-gray-200 hover:text-white transition"
+                  className="px-4 py-2 text-xs font-heading font-semibold text-slate-300 hover:text-white transition"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="relative group overflow-hidden px-5 py-2.5 rounded-xl font-heading font-bold text-sm text-white shadow-lg shadow-pink-500/20 hover:shadow-pink-500/40 transition duration-300"
+                  className="px-5 py-2.5 rounded-full bg-gradient-to-r from-rose-600 via-festival-pink to-amber-500 hover:from-rose-500 hover:to-amber-400 text-white font-heading font-bold text-xs sm:text-sm shadow-glow-pink hover:shadow-glow-gold transition-all duration-300 flex items-center gap-1.5"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-brand-pink via-purple-600 to-amber-500 group-hover:opacity-90 transition-opacity"></span>
-                  <span className="relative flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-amber-200" />
-                    Find My Dandiya Jodi
-                  </span>
+                  <Heart className="w-3.5 h-3.5 fill-white" />
+                  <span>Find My Jodi</span>
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Hamburger */}
           <div className="flex md:hidden items-center gap-2">
+            <Link
+              to="/register"
+              className="px-3 py-1.5 rounded-full bg-gradient-to-r from-festival-pink to-amber-500 text-white font-heading font-bold text-xs flex items-center gap-1"
+            >
+              <Heart className="w-3 h-3 fill-white" />
+              <span>Join</span>
+            </Link>
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5"
+              className="p-2 rounded-full text-slate-300 hover:text-white hover:bg-white/5 transition"
+              aria-label="Toggle Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-[#120320] border-b border-purple-900/60 px-4 pt-3 pb-6 space-y-3">
-          {navLinks.map((link) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block px-3 py-2 rounded-lg text-base font-medium ${
-                location.pathname === link.path
-                  ? 'text-brand-gold bg-purple-950/60'
-                  : 'text-gray-200 hover:bg-white/5'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-
-          <div className="pt-4 border-t border-purple-900/40 space-y-2">
-            {isAuthenticated ? (
-              <>
-                <Link
-                  to="/dashboard"
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden mt-2 mx-auto max-w-sm rounded-2xl bg-festival-card/95 border border-festival-border backdrop-blur-xl p-5 shadow-2xl space-y-4">
+            <div className="space-y-2 text-center">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.path}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-semibold bg-white/10 text-white"
+                  className="block py-2 text-sm font-heading font-bold text-slate-200 hover:text-amber-300"
                 >
-                  <LayoutDashboard className="w-5 h-5 text-brand-pink" />
-                  My Dashboard
-                </Link>
-                {isAdmin && (
+                  {link.name}
+                </a>
+              ))}
+            </div>
+
+            <div className="pt-3 border-t border-purple-900/50 flex flex-col gap-2">
+              {isAuthenticated ? (
+                <>
+                  {isAdmin && (
+                    <Link
+                      to="/admin/dashboard"
+                      className="w-full py-2.5 rounded-xl bg-purple-900/60 text-purple-200 text-xs font-bold text-center block"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
                   <Link
-                    to="/admin/dashboard"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-semibold bg-purple-900/60 text-purple-200"
+                    to="/dashboard"
+                    className="w-full py-2.5 rounded-xl bg-white/10 text-white text-xs font-bold text-center block"
                   >
-                    <Shield className="w-5 h-5 text-brand-gold" />
-                    Admin Panel
+                    My Participant Dashboard
                   </Link>
-                )}
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="flex w-full items-center gap-2 px-3 py-2 rounded-lg text-base text-gray-400 hover:text-white"
-                >
-                  <LogOut className="w-5 h-5" />
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-center px-4 py-2.5 rounded-xl text-base font-semibold bg-white/5 text-gray-200 hover:bg-white/10"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block text-center px-5 py-3 rounded-xl font-heading font-bold text-white bg-gradient-to-r from-brand-pink via-purple-600 to-amber-500 shadow-md"
-                >
-                  Find My Dandiya Jodi ❤️
-                </Link>
-              </>
-            )}
+                  <button
+                    onClick={handleLogout}
+                    className="w-full py-2 text-xs text-rose-400 font-semibold"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="w-full py-2.5 rounded-xl bg-festival-plum border border-festival-border text-slate-200 text-xs font-bold text-center block"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-rose-600 via-festival-pink to-amber-500 text-white font-heading font-bold text-sm text-center block shadow-glow-pink"
+                  >
+                    Find My Jodi ❤️
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </header>
+        )}
+      </header>
+
+      {/* Mobile Sticky Bottom CTA Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 p-3 bg-festival-dark/95 border-t border-festival-border backdrop-blur-lg">
+        <Link
+          to="/register"
+          className="w-full py-3.5 rounded-full bg-gradient-to-r from-rose-600 via-festival-pink to-amber-500 text-white font-heading font-black text-sm tracking-wide shadow-glow-pink flex items-center justify-center gap-2"
+        >
+          <Heart className="w-4 h-4 fill-white" />
+          <span>FIND MY DANDIYA JODI →</span>
+        </Link>
+      </div>
+    </>
   );
 }
