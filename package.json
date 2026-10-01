@@ -1,0 +1,28 @@
+{
+  "name": "dandiya-jodi",
+  "version": "1.0.0",
+  "description": "Dandiya Jodi by Love Angle ❤️ - Navratri 2026 Indore Matching Platform",
+  "main": "server/src/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "node server/src/server.js",
+    "seed": "npm run seed --prefix server",
+    "test": "npm test --prefix server"
+  },
+  "keywords": [
+    "dandiya",
+    "garba",
+    "indore",
+    "navratri-2026",
+    "mern"
+  ],
+  "author": "Love Angle",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0c0214;
+    background-image: 
+      radial-gradient(circle at 15% 20%, rgba(219, 39, 119, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(234, 179, 8, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(107, 33, 168, 0.2) 0%, transparent 50%);
+    background-attachment: fixed;
+    color: #f1f5f9;
+  }
+}
+
+/* Custom Festive Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0c0214;
+}
+::-webkit-scrollbar-thumb {
+  background: #3b1053;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #db2777;
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+  background: rgba(22, 5, 38, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(219, 39, 119, 0.2);
+}
+
+.glass-card-hover {
+  transition: all 0.3s ease;
+}
+.glass-card-hover:hover {
+  background: rgba(30, 8, 50, 0.85);
+  border-color: rgba(234, 179, 8, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(219, 39, 119, 0.3);
+}
+
+.festive-gradient-text {
+  background: linear-gradient(135deg, #fbcfe8 0%, #f43f5e 50%, #facc15 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #fde047 0%, #eab308 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.festive-border {
+  border: 1px solid transparent;
+  background: linear-gradient(#160526, #160526) padding-box,
+              linear-gradient(135deg, #db2777, #eab308, #a855f7) border-box;
+}
+
+.rangoli-pattern {
+  background-image: radial-gradient(rgba(234, 179, 8, 0.15) 1px, transparent 0);
+  background-size: 24px 24px;
+}
